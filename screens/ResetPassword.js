@@ -114,7 +114,7 @@ export default class ResetPassword extends Component {
   resetPassword = async () => {
     console.log("Reset button pressed")
 
-    try {
+    try { // Request firebase to send a reset email.  
       console.log(this.state.email)
       await firebase.auth().sendPasswordResetEmail(this.state.email)
       console.log(reset)
@@ -138,7 +138,7 @@ export default class ResetPassword extends Component {
           value={this.props.email}
           placeholder=''
           onChangeText={(email) => this.setState({email : email})}
-          returnKeyType="send"
+          returnKeyType="submit"
           onSubmitEditing={() => this.resetPassword()}
         />
 

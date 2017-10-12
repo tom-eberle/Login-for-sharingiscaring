@@ -108,6 +108,7 @@ export default class LoginScreen extends Component {
         let user = await firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password); // Should be "user = await fire..."
         console.log(user)
         console.log('User successfully logged');
+        this.state.isLoggedIn = true
         // loginUserSuccess(dispatch, user);
       }
       catch (error) {
