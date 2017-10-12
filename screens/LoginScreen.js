@@ -29,12 +29,6 @@ import { TabNavigator, StackNavigator } from 'react-navigation'; // Navigation c
 // NEED TO USE REACT NAVIGTION 
 
 
-// Initialise and display Firebase info in console, be sure that we have the right config. 
-    console.log(firebaseConfig);
-    firebase.initializeApp(firebaseConfig);
-    console.log("Firebase initialised")
-
-
 
   
 const styles = StyleSheet.create({
