@@ -138,7 +138,7 @@ export default class ResetPassword extends Component {
           value={this.props.email}
           placeholder=''
           onChangeText={(email) => this.setState({email : email})}
-          returnKeyType="submit"
+          returnKeyType="send"
           onSubmitEditing={() => this.resetPassword()}
         />
 
