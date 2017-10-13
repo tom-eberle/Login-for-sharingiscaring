@@ -165,7 +165,6 @@ export default class RegisterAccount extends Component {
       }
       catch (error) {
         console.log(error);
-        let err_message = error.message
         this.dropdown.alertWithType("error", "Error", error);
       }
   
