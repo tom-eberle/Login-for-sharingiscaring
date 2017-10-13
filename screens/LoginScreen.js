@@ -26,7 +26,7 @@ import { // Import React-Native UI Kitten Design
 import { connect } from 'react-redux'; // Probably not useful
 import { TabNavigator, StackNavigator } from 'react-navigation'; // Navigation components
 // NEED TO USE REACT NAVIGTION 
-
+import DropdownAlert from 'react-native-dropdownalert'; // Alert component
 
 
   
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   save: {
-    marginVertical: 9
+    marginVertical: 15
   },
   image: {
     width: 200,
@@ -106,16 +106,27 @@ export default class LoginScreen extends Component {
         //const password = "testtest"
         console.log(this.state.email)
         console.log(this.state.password)
-        let user = await firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password); // Should be "user = await fire..."
-        console.log(user)
-        console.log('User successfully logged');
-        this.state.isLoggedIn = true
+        let user = await firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password);
         // loginUserSuccess(dispatch, user);
+        console.log('User sucessfully logged')
+        this.state.isLoggedIn = true
+        console.log(user)
+
+        if (user) {
+          this.dropdown.alertWithType('success', 'Success', "Logged-in");
+        }
+        
       }
       catch (error) {
         console.log(error);
         let err_message = error.message;
         // loginUserFail(dispatch, err_message);
+        
+        if (err_message) {
+          this.dropdown.alertWithType('error', 'Error', err_message);
+        }
+
+      
       }
   }
 
@@ -157,7 +168,6 @@ export default class LoginScreen extends Component {
         <RkButton // Login button 
               rkType='rounded'
               onPress={() => { this.onButtonPress(); }}
-              rkType='large'
               style={styles.save}>
               LOGIN
         </RkButton> 
@@ -165,7 +175,7 @@ export default class LoginScreen extends Component {
               onPress={() => this.onNavPress('reset_scr')}
               rkType='large'
               style={styles.save}>
-              RESET PASSWORD
+              Reset password
         </Text>
         <TouchableOpacity // Register button
           onPress={() => this.onNavPress('registerinfo_scr')}
@@ -177,7 +187,7 @@ export default class LoginScreen extends Component {
         </TouchableOpacity>
 
 
-
+        <DropdownAlert ref={ref => this.dropdown = ref}/>
       </View>
       
 
