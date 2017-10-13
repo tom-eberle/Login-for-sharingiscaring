@@ -162,6 +162,9 @@ export default class RegisterAccount extends Component {
         });
         console.log(user);
         this.onNavPress('login_scr')
+        if (user) { // Display success message when logged in.
+          this.dropdown.alertWithType('success', 'Success', "Registered");
+        }
       }
       catch (error) {
         console.log(error);
