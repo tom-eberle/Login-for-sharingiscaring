@@ -12,6 +12,7 @@ import {
   TextInput,
   TouchableHighlight,
   View,
+  ScrollView,
 } from 'react-native'; // Import React-Native elements
 import { FormLabel, FormInput, FormValidationMessage, Button, Divider, SocialIcon, Icon } from 'react-native-elements';
 
@@ -32,7 +33,7 @@ import { connect } from 'react-redux'; // Probably not useful
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    //justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#ddd',
   },
@@ -89,6 +90,9 @@ const styles = StyleSheet.create({
   image: {
     width: 200,
     height: 200
+  },
+  phone: {
+    margin: 10,
   },
 });
 
@@ -152,8 +156,7 @@ export default class RegisterInfo extends Component {
   // Visual container and text 
   render() {
     return (
-      
-      <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.container}>
 
 
         <View style={{ flexDirection: 'row', justifyContent: 'space-around'}} >
@@ -180,21 +183,23 @@ export default class RegisterInfo extends Component {
         <FormLabel>Enter Phone Number</FormLabel>
         <FormInput
           value={this.props.phone}
-          placeholder='0041712345678'
+          style={styles.phone}
+          placeholder='+(41)712345678'
           keyboardType={'phone-pad'}
           onChangeText={(phone) => this.setState({phone : phone})}
           blurOnSubmit
         />
 
+        <FormLabel>  </FormLabel>
+
         <RkButton
               onPress={() => this.onNavPress('registeraccount_scr')}
-              rkType='large'
+              rkType='rounded'
               style={styles.save}>
               PROCEED
         </RkButton>
              
-
-      </View>
+      </ScrollView>
     );
   }
 }

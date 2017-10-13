@@ -10,7 +10,7 @@ import { TabNavigator, StackNavigator } from 'react-navigation';
 import { StyleSheet, View } from 'react-native';
 
 import firebase from 'firebase'; // Import Firebase login
-import { firebaseConfig } from '../config'; // Import of Firebase config
+import { firebaseConfig } from './config'; // Import of Firebase config
 
 
 const styles = StyleSheet.create({

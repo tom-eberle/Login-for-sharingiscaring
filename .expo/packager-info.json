@@ -1,8 +1,8 @@
 {
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "expoServerPort": 19000,
+  "packagerPort": 19002,
+  "packagerPid": 1319,
+  "expoServerNgrokUrl": "https://zg-w84.tomeberle.login-screen.exp.direct",
+  "packagerNgrokUrl": "https://packager.zg-w84.tomeberle.login-screen.exp.direct",
+  "ngrokPid": 1331
 }

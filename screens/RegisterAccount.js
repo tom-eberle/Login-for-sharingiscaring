@@ -12,6 +12,7 @@ import {
   TextInput,
   TouchableHighlight,
   View,
+  ScrollView,
 } from 'react-native'; // Import React-Native elements
 import { FormLabel, FormInput, FormValidationMessage, Button, Divider, SocialIcon, Icon } from 'react-native-elements';
 
@@ -32,7 +33,7 @@ import { connect } from 'react-redux'; // Probably not useful
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    //justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#ddd',
   },
@@ -150,16 +151,8 @@ export default class RegisterAccount extends Component {
   render() {
     return (
       
-      <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.container}>
 
-      
-        <FormLabel>Enter Phone Number</FormLabel>
-        <FormInput
-          value={this.props.phone}
-          placeholder='0041712345678'
-          keyboardType={'phone-pad'}
-          onChangeText={(phone) => this.setState({phone : phone})}
-        />
 
         <FormLabel>Enter Email</FormLabel>
         <FormInput
@@ -173,7 +166,7 @@ export default class RegisterAccount extends Component {
         <FormInput
           autoCorrect={false}
           value={this.props.password}
-          placeholder=''
+          placeholder='•••••••••'
           secureTextEntry={true}
           onChangeText={(password) => this.setState({password : password})}
           returnKeyType="send"
@@ -184,13 +177,13 @@ export default class RegisterAccount extends Component {
         
         <RkButton
               onPress={() => this.onNavPress('login_scr')}
-              rkType='large'
+              rkType='rounded'
               style={styles.save}>
-              CREATE ACCOUNT
+              CREATE
         </RkButton>
              
 
-      </View>
+      </ScrollView>
     );
   }
 }

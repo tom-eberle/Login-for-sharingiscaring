@@ -136,7 +136,7 @@ export default class ResetPassword extends Component {
         <FormLabel>Enter your email adress</FormLabel>
         <FormInput
           value={this.props.email}
-          placeholder=''
+          placeholder='maxime.schmitt@student.unisg.ch'
           onChangeText={(email) => this.setState({email : email})}
           returnKeyType="send"
           onSubmitEditing={() => this.resetPassword()}
@@ -146,9 +146,9 @@ export default class ResetPassword extends Component {
         
         <RkButton
               onPress={() => this.resetPassword()}
-              rkType='large'
+              rkType='rounded'
               style={styles.save}>
-              RESET PASSWORD
+              RESET
         </RkButton>
             
       

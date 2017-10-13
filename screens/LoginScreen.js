@@ -1,8 +1,7 @@
 
 import React, { Component, PropTypes } from 'react';
 import firebase from 'firebase'; // Import Firebase login
-import { firebaseConfig } from '../config'; // Import of Firebase config
-import { emailChanged, passwordChanged, loginUser, errorSet } from '../actions'; // Need to be explained
+import { firebaseConfig } from '../config/firebase_config.js'; // Import of Firebase config
 import {
   Alert,
   AppRegistry,
@@ -61,12 +60,14 @@ const styles = StyleSheet.create({
     height: 200
   },
   registerContainer: {
+    position: 'absolute',
+    bottom: 0,
     alignSelf: "flex-end",
     backgroundColor: "rgba(0, 0, 0, 0.1)",
     paddingVertical: 16,
     width: Dimensions.get("window").width,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   registerText: {
     color: "black",
@@ -154,6 +155,7 @@ export default class LoginScreen extends Component {
           onSubmitEditing={() => this.onButtonPress()}
         />
         <RkButton // Login button 
+              rkType='rounded'
               onPress={() => { this.onButtonPress(); }}
               rkType='large'
               style={styles.save}>
