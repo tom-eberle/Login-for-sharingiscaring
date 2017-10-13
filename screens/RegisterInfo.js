@@ -21,12 +21,7 @@ import { // Import React-Native UI Kitten Design
 } from 'react-native-ui-kitten';
 import { connect } from 'react-redux'; // Probably not useful
 import DropdownAlert from 'react-native-dropdownalert'; // Alert component
-
-
-// Initialise and display Firebase info in console, be sure that we have the right config. 
- //   console.log(firebaseConfig);
-  //  firebase.initializeApp(firebaseConfig);
- //   console.log("Firebase initialised")
+import validator from "validator"; // Use to validate the forms
 
 
 
@@ -107,7 +102,7 @@ export default class RegisterInfo extends Component {
     // Use constructor to store email and password. 
     constructor(){
       super();
-      this.state = {isLoggedIn : false, email :"", password : "", firstname :"", lastname : "", phone : ""};
+      this.state = {phone: "", lastname :"", firstname : ""};
     }
 
 
@@ -118,39 +113,40 @@ export default class RegisterInfo extends Component {
     };
 
 
-  // Sending info to firebase
-  _signupUser = async () => {
+  onNextButton(){
 
-      var firstname = this.state.firstname
-      var lastname = this.state.lastname
-      var displayName = firstname + ' ' + lastname;
-      var email = this.state.email
-      var password = this.state.password
-      var phone = this.state.phone
-      console.log(email);
-      console.log(password);
-      console.log(displayName);
-      console.log(phone);
-  
-      try {
-        let user = await firebase.auth().createUserWithEmailAndPassword(email, password);
-        user.updateProfile({ displayName });
-        // write user properties to firebase
-        firebase.database().ref(`/users/${user.uid}/userDetails`).set({
-          email,
-          phone,
-          firstname,
-          lastname,
-          displayName
-        });
-        console.log(user);
-      }
-      catch (error) {
-        console.log(error);
-      }
-  
-  };
+    if (!this.state.firstname.length) {
+      console.log(this.state.firstname.length)
+      this.dropdown.alertWithType("error", "Error", "Firstname must be provided.");
+      return;
+    }
+    if (!this.state.lastname.length) {
+      this.dropdown.alertWithType("error", "Error", "Lastname must be provided.");
+      return;
+    }
+    if (!this.state.phone.length) {
+      this.dropdown.alertWithType(
+        "error",
+        "Error",
+        "Phone number must be provided."
+      );
+      return;
+    }
+    if (!validator.isMobilePhone(this.state.phone, 'fr-FR')) {
+      this.dropdown.alertWithType(
+        "error", 
+        "Error", 
+        "Supply a correct phone number."
+      );
+      return;
+    }
 
+
+
+
+
+    this.onNavPress('registeraccount_scr')
+  } 
 
 
 
@@ -164,18 +160,19 @@ export default class RegisterInfo extends Component {
         <View style={{flex:1}} > 
           <FormLabel>Enter First Name</FormLabel>
           <FormInput
-            value={this.props.firstname}
+            value={this.state.firstname}
             placeholder='Maxime'
-            onChangeText={(firstname) => this.setState({firstname : firstname})}
-            
+            textAlign='center'
+            onChangeText={(firstname) => {this.setState({firstname}); }}
           />
         </View>
         <View style={{flex:1}} >
           <FormLabel>Enter Last Name</FormLabel>
           <FormInput
-            value={this.props.lastname}
+            value={this.state.lastname}
             placeholder='Schmit'
-            onChangeText={(lastname) => this.setState({lastname : lastname})}
+            textAlign='center'
+            onChangeText={(lastname) => {this.setState({lastname}); }}
 
           />
         </View>
@@ -183,23 +180,24 @@ export default class RegisterInfo extends Component {
       
         <FormLabel>Enter Phone Number</FormLabel>
         <FormInput
-          value={this.props.phone}
+          value={this.state.phone}
           style={styles.phone}
-          placeholder='+(41)712345678'
+          placeholder='0712345678'
+          textAlign='center'
           keyboardType={'phone-pad'}
-          onChangeText={(phone) => this.setState({phone : phone})}
+          onChangeText={(phone) => {this.setState({phone}); }}
           blurOnSubmit
         />
 
         <FormLabel>  </FormLabel>
 
         <RkButton
-              onPress={() => this.onNavPress('registeraccount_scr')}
+              onPress={() => this.onNextButton()}
               rkType='rounded'
               style={styles.save}>
               PROCEED
         </RkButton>
-             
+        <DropdownAlert ref={ref => this.dropdown = ref}/>
       </ScrollView>
     );
   }

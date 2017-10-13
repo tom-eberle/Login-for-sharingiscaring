@@ -183,7 +183,7 @@ export default class RegisterAccount extends Component {
               CREATE
         </RkButton>
              
-
+        <DropdownAlert ref={ref => this.dropdown = ref}/>
       </ScrollView>
     );
   }
