@@ -21,6 +21,7 @@ import { // Import React-Native UI Kitten Design
 } from 'react-native-ui-kitten';
 import { connect } from 'react-redux'; // Probably not useful
 import DropdownAlert from 'react-native-dropdownalert'; // Alert component
+import validator from "validator"; // Use to validate the forms
 
 
 // Initialise and display Firebase info in console, be sure that we have the right config. 
@@ -107,11 +108,7 @@ export default class RegisterAccount extends Component {
       this.state = {isLoggedIn : false, email :"", password : "", firstname :"", lastname : "", phone : ""};
     }
 
-    static propTypes = {
-      lastname: PropTypes.object.isRequired,
-      firstname: PropTypes.object.isRequired,
-      phone: PropTypes.object.isRequired,
-    };
+
 
 
    // Navigation function
@@ -121,6 +118,32 @@ export default class RegisterAccount extends Component {
 
   // Sending info to firebase
   _signupUser = async () => {
+
+    if (!this.state.email.length) {
+      this.dropdown.alertWithType(
+        "error",
+        "Error",
+        "Email username must be provided."
+      );
+      return;
+    }
+    if (!validator.isEmail(this.state.mail)) {
+      this.dropdown.alertWithType(
+        "error", 
+        "Error", 
+        "Supply a correct email."
+      );
+      return;
+    }
+    if (this.password.length < 6) {
+      this.dropdown.alertWithType(
+        "error",
+        "Error",
+        "The password lenght must be 6 minimum."
+      );
+      return;
+    }
+   
 
       var firstname = this.props.firstname
       var lastname = this.props.lastname
