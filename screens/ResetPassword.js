@@ -20,6 +20,7 @@ import { // Import React-Native UI Kitten Design
   RkButton,
 } from 'react-native-ui-kitten';
 import { connect } from 'react-redux'; // Probably not useful
+import DropdownAlert from 'react-native-dropdownalert'; // Alert component
 
 
 // Initialise and display Firebase info in console, be sure that we have the right config. 
@@ -83,12 +84,16 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: 16,
   },
-  save: {
-    marginVertical: 9
-  },
   image: {
     width: 200,
     height: 200
+  },
+  enterMail: {
+    marginVertical: 15,
+  },
+  enterMailInput: {
+  },
+  resetButton: {
   },
 });
 
@@ -117,11 +122,16 @@ export default class ResetPassword extends Component {
     try { // Request firebase to send a reset email.  
       console.log(this.state.email)
       await firebase.auth().sendPasswordResetEmail(this.state.email)
-      console.log(reset)
+      console.log('Reset')
+      this.dropdown.alertWithType('success', 'Success', "Check your emails");
     }
     catch (error) {
       console.log(error)
       let err_message = error.message
+
+      if (err_message) { // Display error
+        this.dropdown.alertWithType('error', 'Error', err_message);
+      }
     
     }
   }
@@ -133,10 +143,12 @@ export default class ResetPassword extends Component {
      
 
 
-        <FormLabel>Enter your email adress</FormLabel>
+        <FormLabel style={styles.enterMail}>Enter your email adress</FormLabel>
         <FormInput
           value={this.props.email}
+          style={styles.enterMailInput}
           placeholder='maxime.schmitt@student.unisg.ch'
+          textAlign='center'
           onChangeText={(email) => this.setState({email : email})}
           returnKeyType="send"
           onSubmitEditing={() => this.resetPassword()}
@@ -147,11 +159,12 @@ export default class ResetPassword extends Component {
         <RkButton
               onPress={() => this.resetPassword()}
               rkType='rounded'
-              style={styles.save}>
+              disabled={false}
+              style={styles.resetButton}>
               RESET
         </RkButton>
             
-      
+        <DropdownAlert ref={ref => this.dropdown = ref}/>
       </ScrollView>
     );
   }

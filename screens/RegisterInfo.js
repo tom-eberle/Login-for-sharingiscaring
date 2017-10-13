@@ -20,6 +20,7 @@ import { // Import React-Native UI Kitten Design
   RkButton,
 } from 'react-native-ui-kitten';
 import { connect } from 'react-redux'; // Probably not useful
+import DropdownAlert from 'react-native-dropdownalert'; // Alert component
 
 
 // Initialise and display Firebase info in console, be sure that we have the right config. 
