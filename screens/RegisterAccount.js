@@ -119,15 +119,7 @@ export default class RegisterAccount extends Component {
   // Sending info to firebase
   _signupUser = async () => {
 
-    if (!this.state.email.length) {
-      this.dropdown.alertWithType(
-        "error",
-        "Error",
-        "Email username must be provided."
-      );
-      return;
-    }
-    if (!validator.isEmail(this.state.mail)) {
+    if (!validator.isEmail(this.state.email)) {
       this.dropdown.alertWithType(
         "error", 
         "Error", 
@@ -135,7 +127,7 @@ export default class RegisterAccount extends Component {
       );
       return;
     }
-    if (this.password.length < 6) {
+    if (this.state.password.length < 6) {
       this.dropdown.alertWithType(
         "error",
         "Error",
@@ -173,6 +165,8 @@ export default class RegisterAccount extends Component {
       }
       catch (error) {
         console.log(error);
+        let err_message = error.message
+        this.dropdown.alertWithType("error", "Error", error);
       }
   
   };
