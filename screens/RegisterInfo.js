@@ -1,5 +1,5 @@
 
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import firebase from 'firebase'; // Import Firebase login
 import { firebaseConfig } from '../config'; // Import of Firebase config
 import {
@@ -141,11 +141,11 @@ export default class RegisterInfo extends Component {
       return;
     }
 
-
-
-
-
-    this.onNavPress('registeraccount_scr')
+    this.props.navigation.navigate('registeraccount_scr', {
+      firstname: this.firstname,
+      lastname: this.lastname,
+      phone: this.phone,
+    })
   } 
 
 
@@ -162,7 +162,6 @@ export default class RegisterInfo extends Component {
           <FormInput
             value={this.state.firstname}
             placeholder='Maxime'
-            textAlign='center'
             onChangeText={(firstname) => {this.setState({firstname}); }}
           />
         </View>
@@ -171,7 +170,6 @@ export default class RegisterInfo extends Component {
           <FormInput
             value={this.state.lastname}
             placeholder='Schmit'
-            textAlign='center'
             onChangeText={(lastname) => {this.setState({lastname}); }}
 
           />

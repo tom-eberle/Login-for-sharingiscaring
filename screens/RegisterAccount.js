@@ -1,5 +1,5 @@
 
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import firebase from 'firebase'; // Import Firebase login
 import { firebaseConfig } from '../config'; // Import of Firebase config
 import {
@@ -107,6 +107,13 @@ export default class RegisterAccount extends Component {
       this.state = {isLoggedIn : false, email :"", password : "", firstname :"", lastname : "", phone : ""};
     }
 
+    static propTypes = {
+      lastname: PropTypes.object.isRequired,
+      firstname: PropTypes.object.isRequired,
+      phone: PropTypes.object.isRequired,
+    };
+
+
    // Navigation function
   onNavPress = (screenname) => {
     this.props.navigation.navigate(screenname);
@@ -115,12 +122,13 @@ export default class RegisterAccount extends Component {
   // Sending info to firebase
   _signupUser = async () => {
 
-      var firstname = this.state.firstname
-      var lastname = this.state.lastname
+      var firstname = this.props.firstname
+      var lastname = this.props.lastname
+      var phone = this.props.phone
       var displayName = firstname + ' ' + lastname;
       var email = this.state.email
       var password = this.state.password
-      var phone = this.state.phone
+
       console.log(email);
       console.log(password);
       console.log(displayName);
@@ -138,6 +146,7 @@ export default class RegisterAccount extends Component {
           displayName
         });
         console.log(user);
+        this.onNavPress('login_scr')
       }
       catch (error) {
         console.log(error);
@@ -157,27 +166,27 @@ export default class RegisterAccount extends Component {
 
         <FormLabel>Enter Email</FormLabel>
         <FormInput
-          value={this.props.email}
+          value={this.state.email}
           autoCorrect={false}
           placeholder='maxime.schmit@student.unisg.ch'
-          onChangeText={(email) => this.setState({email : email})}
+          onChangeText={(email) => {this.setState({email}); }}
         />
 
         <FormLabel>Enter Password</FormLabel>
         <FormInput
           autoCorrect={false}
-          value={this.props.password}
+          value={this.state.password}
           placeholder='•••••••••'
           secureTextEntry={true}
-          onChangeText={(password) => this.setState({password : password})}
+          onChangeText={(password) => {this.setState({password}); }}
           returnKeyType="send"
-          onSubmitEditing={() => this.onNavPress('login_scr')}
+          onSubmitEditing={() => this._signupUser()}
         />
 
         <FormLabel>  </FormLabel>
         
         <RkButton
-              onPress={() => this.onNavPress('login_scr')}
+              onPress={() => this._signupUser()}
               rkType='rounded'
               style={styles.save}>
               CREATE
